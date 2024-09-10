@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+    redis:
+        image: redis:latest
+        container_name: Redis
+        ports:
+            - "6379:6379"
+
+    postgres:
+        image: postgres
+        restart: always
+        container_name: Postgres
+        environment:
+            POSTGRES_PASSWORD: admin
+            POSTGRES_USER: postgres
+            POSTGRES_DB: postgres
+            PGDATA: /var/lib/postgresql/data
+            POSTGRES_INITDB_ARGS: "-A md5"
+        ports:
+            - "5432:5432"
