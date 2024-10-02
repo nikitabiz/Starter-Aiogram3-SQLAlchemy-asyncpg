@@ -17,20 +17,3 @@ sessionmaker = async_sessionmaker(
 
 class Base(DeclarativeBase): 
     pass
-
-
-class SessionManager:
-    def __init__(self):
-        self.sessionmaker = sessionmaker
-
-    async def __aenter__(self):
-        self.session = self.sessionmaker()
-        return self.session
-
-    async def __aexit__(self, exc_type, *args):
-        if exc_type is None:
-            await self.session.commit()
-        else:
-            await self.session.rollback()
-        await self.session.close()
-
